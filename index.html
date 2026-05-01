@@ -1,0 +1,1950 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ClickHows — The Practical Almanac for Data, Est. MMXXVI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --news:    #f1ead6;     /* newsprint cream */
+    --paper:   #f7f1dc;     /* lighter paper */
+    --ink:     #1a1612;
+    --ink-2:   #2c241c;
+    --muted:   #6e5f4a;
+    --line:    #c8b88e;
+    --rule:    #b8a472;
+    --red:     #c1361e;     /* instructional-manual red */
+    --red-deep:#8e2614;
+    --gold:    #b88a2a;
+    --paper-2: #ece2c0;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    background: var(--news);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* subtle paper texture via layered gradients */
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(184,164,114,0.07), transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(184,164,114,0.08), transparent 60%);
+  }
+
+  .display { font-family: "DM Serif Display", "Times New Roman", serif; font-weight: 400; }
+  .editorial { font-family: "Instrument Serif", serif; font-weight: 400; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+  /* ───── MASTHEAD ───── */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 18px 56px 14px;
+    background: var(--news);
+  }
+  .masthead-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+  }
+  .masthead-meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .masthead-meta b { color: var(--ink); font-weight: 600; }
+  .masthead-meta.right { text-align: right; }
+  .wordmark {
+    font-family: "DM Serif Display", serif;
+    font-size: 76px;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin: 0;
+    color: var(--ink);
+  }
+  .wordmark em {
+    font-style: italic;
+    color: var(--red);
+  }
+  .masthead-tagline {
+    text-align: center;
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+  .masthead-tagline::before, .masthead-tagline::after {
+    content: "❦"; margin: 0 14px; color: var(--red); font-style: normal;
+  }
+
+  /* ───── ISSUE STRIP ───── */
+  .issue-strip {
+    background: var(--ink);
+    color: var(--news);
+    padding: 8px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .issue-strip > span { white-space: nowrap; }
+  .issue-strip .pill {
+    background: var(--red);
+    padding: 3px 10px;
+    color: var(--news);
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  /* ───── TOP HEADLINE ───── */
+  .lede {
+    padding: 56px 56px 48px;
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+    position: relative;
+  }
+  .lede-kicker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .lede-kicker::before, .lede-kicker::after {
+    content: "──"; margin: 0 14px; color: var(--rule); letter-spacing: -0.05em;
+  }
+  .lede-h1 {
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(56px, 8vw, 120px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0 auto 24px;
+    max-width: 18ch;
+  }
+  .lede-h1 em { font-style: italic; color: var(--red); }
+  .lede-deck {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin: 0 auto 36px;
+  }
+  .lede-byline {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .lede-byline b { color: var(--ink); font-weight: 600; }
+
+  /* drop cap helper */
+  .dropcap::first-letter {
+    font-family: "DM Serif Display", serif;
+    font-size: 4.5em;
+    float: left;
+    line-height: 0.85;
+    margin: 4px 10px 0 0;
+    color: var(--red);
+  }
+
+  /* ───── NUMBERED INDEX ───── */
+  .section-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: baseline;
+    padding: 0 0 22px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 36px;
+  }
+  .section-num {
+    font-family: "DM Serif Display", serif;
+    font-size: 56px;
+    line-height: 0.8;
+    color: var(--red);
+    font-style: italic;
+  }
+  .section-title {
+    font-family: "DM Serif Display", serif;
+    font-size: 36px;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--red); }
+  .section-meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .index {
+    padding: 72px 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    margin-top: 12px;
+  }
+  .how-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 18px;
+    align-items: baseline;
+    padding: 18px 28px 18px 0;
+    border-bottom: 1px dotted var(--rule);
+    cursor: default;
+    transition: background 0.15s;
+  }
+  .how-row:nth-child(odd) { padding-right: 28px; border-right: 1px solid var(--rule); }
+  .how-row:nth-child(even) { padding-left: 28px; }
+  .how-row:hover { background: rgba(193, 54, 30, 0.04); }
+  .how-num {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--red);
+    line-height: 0.9;
+  }
+  .how-title {
+    font-family: "Instrument Serif", serif;
+    font-size: 21px;
+    line-height: 1.2;
+  }
+  .how-title em { font-style: italic; color: var(--ink-2); }
+  .how-page {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  .how-dots {
+    flex: 1;
+    border-bottom: 1.5px dotted var(--rule);
+    margin: 0 8px;
+    align-self: end;
+    margin-bottom: 6px;
+  }
+
+  /* ───── EXPLODED DIAGRAM ───── */
+  .diagram {
+    padding: 80px 56px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    border-top: 1px solid var(--rule);
+  }
+  .diagram-stage {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .diagram-svg-wrap {
+    position: relative;
+    background: var(--news);
+    border: 1px solid var(--rule);
+    padding: 32px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .diagram-svg-wrap::before {
+    content: "FIG. 01";
+    position: absolute;
+    top: 12px; left: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+  .diagram-svg-wrap::after {
+    content: "PLATE I · QUERY ANATOMY";
+    position: absolute;
+    bottom: 12px; right: 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .legend {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .legend-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .legend-h {
+    font-family: "DM Serif Display", serif;
+    font-size: 36px;
+    line-height: 1.05;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+  .legend-h em { font-style: italic; color: var(--red); }
+  .legend-item {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding-bottom: 12px;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .legend-num {
+    width: 28px; height: 28px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; font-weight: 600;
+    background: var(--news);
+  }
+  .legend-text { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+  .legend-text b { font-family: "Instrument Serif", serif; font-size: 17px; font-weight: 400; color: var(--ink); display: block; margin-bottom: 2px; }
+  .legend-text b em { font-style: italic; color: var(--red); }
+
+  /* ───── ADVICE COLUMN ───── */
+  .advice {
+    padding: 80px 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .advice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .letter {
+    border-top: 4px solid var(--ink);
+    padding-top: 24px;
+    position: relative;
+  }
+  .letter-from {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .letter-from b { color: var(--red); font-weight: 600; }
+  .letter-q {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 0 0 18px;
+    padding-left: 20px;
+    border-left: 3px solid var(--red);
+  }
+  .letter-q::before { content: "“"; color: var(--red); margin-right: 4px; }
+  .letter-q::after { content: "”"; color: var(--red); margin-left: 2px; }
+  .letter-sig {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: right;
+    margin: -10px 0 22px;
+  }
+  .letter-a-label {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px;
+    color: var(--red);
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .letter-a {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 56ch;
+  }
+  .letter-a b { color: var(--ink); }
+
+  /* ───── KNOW-HOW BOX (sidebar pull) ───── */
+  .knowhow {
+    background: var(--ink);
+    color: var(--news);
+    padding: 36px 32px;
+    margin-top: 28px;
+    position: relative;
+  }
+  .knowhow::before {
+    content: "★ DID YOU KNOW";
+    position: absolute;
+    top: -12px; left: 24px;
+    background: var(--red);
+    color: var(--news);
+    padding: 4px 12px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+  }
+  .knowhow-q {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.3;
+    margin: 0 0 14px;
+  }
+  .knowhow-a {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(241,234,214,0.85);
+    margin: 0;
+  }
+
+  /* ───── BIG CALLOUT / PROCLAMATION ───── */
+  .proclaim {
+    padding: 96px 56px;
+    background: var(--ink);
+    color: var(--news);
+    text-align: center;
+    position: relative;
+  }
+  .proclaim::before, .proclaim::after {
+    content: "";
+    position: absolute;
+    left: 56px; right: 56px;
+    height: 6px;
+    border-top: 1px solid var(--news);
+    border-bottom: 1px solid var(--news);
+  }
+  .proclaim::before { top: 24px; }
+  .proclaim::after { bottom: 24px; }
+  .proclaim-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .proclaim-eyebrow::before, .proclaim-eyebrow::after {
+    content: "✦"; margin: 0 14px; color: var(--news); opacity: 0.6;
+  }
+  .proclaim-quote {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: clamp(38px, 5vw, 72px);
+    line-height: 1.08;
+    margin: 0 auto 32px;
+    max-width: 18ch;
+  }
+  .proclaim-quote .red { color: var(--red); font-style: normal; }
+  .proclaim-sig {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: rgba(241,234,214,0.6);
+  }
+
+  /* ───── TUTORIAL STRIP ───── */
+  .tutorial {
+    padding: 80px 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tutorial-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 24px;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .step {
+    padding: 32px 24px;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+  }
+  .step:last-child { border-right: 0; }
+  .step-num-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .step-num {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 48px;
+    line-height: 0.85;
+    color: var(--red);
+  }
+  .step-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .step-title {
+    font-family: "Instrument Serif", serif;
+    font-size: 22px;
+    line-height: 1.2;
+  }
+  .step-title em { font-style: italic; color: var(--red); }
+  .step-desc { font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+  .step-fig {
+    width: 56px; height: 56px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: auto;
+    background: var(--paper);
+  }
+
+  /* ───── ALMANAC FACTS ───── */
+  .almanac {
+    padding: 80px 56px;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--rule);
+    border-top: 1px solid var(--rule);
+  }
+  .almanac-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1.5px solid var(--ink);
+    background: var(--news);
+  }
+  .fact {
+    padding: 28px 24px;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .fact:last-child { border-right: 0; }
+  .fact-num {
+    font-family: "DM Serif Display", serif;
+    font-size: 56px;
+    line-height: 0.9;
+    color: var(--ink);
+  }
+  .fact-num em { font-style: italic; color: var(--red); }
+  .fact-lbl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .fact-note {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ───── COLOPHON / FOOTER ───── */
+  .colophon {
+    padding: 64px 56px 28px;
+    background: var(--news);
+    border-top: 4px double var(--ink);
+  }
+  .colophon-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 56px;
+    margin-bottom: 48px;
+  }
+  .colophon-brand .wordmark { font-size: 36px; text-align: left; }
+  .colophon-brand .masthead-tagline { text-align: left; font-size: 14px; }
+  .colophon-brand .masthead-tagline::before { display: none; }
+  .colophon-brand .masthead-tagline::after { display: none; }
+  .colophon h4 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin: 0 0 14px;
+    font-weight: 600;
+  }
+  .colophon ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .colophon a { color: var(--ink-2); text-decoration: none; font-family: "Instrument Serif", serif; font-size: 16px; }
+  .colophon a:hover { color: var(--red); text-decoration: underline; text-decoration-style: wavy; }
+  .colophon-base {
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    display: flex; justify-content: space-between;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ───── READ BY (CUSTOMERS STRIP) ───── */
+  .readby {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 56px;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    overflow: hidden;
+  }
+  .readby-label {
+    flex-shrink: 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.5;
+    border-right: 1px solid var(--rule);
+    padding-right: 32px;
+  }
+  .readby-label b { font-family: "Instrument Serif", serif; font-style: italic; font-size: 22px; color: var(--ink); display: block; letter-spacing: 0; text-transform: none; font-weight: 400; margin-top: 4px;}
+  .readby-names {
+    display: flex;
+    gap: 36px;
+    overflow: hidden;
+    flex: 1;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+  .readby-track {
+    display: flex;
+    gap: 36px;
+    animation: readby-scroll 50s linear infinite;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  @keyframes readby-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .readby-name {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px;
+    letter-spacing: -0.005em;
+    color: var(--ink-2);
+    flex-shrink: 0;
+  }
+  .readby-name + .readby-name::before {
+    content: "·";
+    margin-right: 36px;
+    color: var(--rule);
+  }
+
+  /* ───── WHAT WE ARE NOT ───── */
+  .arenot {
+    padding: 80px 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .arenot-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .arenot-list {
+    list-style: none; margin: 0; padding: 0;
+    border-top: 2px solid var(--ink);
+  }
+  .arenot-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 24px;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: center;
+  }
+  .arenot-name {
+    font-family: "DM Serif Display", serif;
+    font-size: 24px;
+    line-height: 1.1;
+  }
+  .arenot-because {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .arenot-x {
+    width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--red);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .arenot-aside {
+    background: var(--ink);
+    color: var(--news);
+    padding: 32px 28px;
+    align-self: start;
+    position: relative;
+  }
+  .arenot-aside::before {
+    content: "★";
+    position: absolute; top: -16px; left: 24px;
+    background: var(--news);
+    color: var(--red);
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .arenot-aside-h {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.15;
+    margin: 0 0 16px;
+  }
+  .arenot-aside-h em { color: var(--red); font-style: normal; }
+  .arenot-aside p {
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin: 0 0 12px;
+    color: rgba(241,234,214,0.86);
+  }
+  .arenot-aside p:last-child { margin: 0; }
+
+  /* ───── BENCHMARK TABLE (RACE RESULTS) ───── */
+  .bench {
+    padding: 80px 56px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    border-top: 1px solid var(--rule);
+  }
+  .bench-table {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: var(--news);
+    border: 1.5px solid var(--ink);
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .bench-table thead th {
+    background: var(--ink);
+    color: var(--news);
+    text-align: left;
+    padding: 14px 18px;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-right: 1px solid rgba(241,234,214,0.15);
+  }
+  .bench-table thead th:last-child { border-right: 0; text-align: right; }
+  .bench-table thead th.center { text-align: center; }
+  .bench-table tbody td {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px dotted var(--rule);
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .bench-table tbody td:last-child { border-right: 0; text-align: right; }
+  .bench-table tbody tr.winner td { background: rgba(193,54,30,0.06); }
+  .bench-table tbody tr.winner td:first-child {
+    border-left: 3px solid var(--red);
+    padding-left: 15px;
+  }
+  .bench-name {
+    font-family: "Instrument Serif", serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .bench-name.us { font-style: normal; font-weight: 400; }
+  .bench-name.us em { font-style: italic; color: var(--red); }
+  .bench-pos {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--red);
+    text-align: center;
+  }
+  .bench-time {
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .bench-note {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 18px;
+  }
+
+  /* ───── WEATHER & RECIPES (TWO COLUMN CURIO) ───── */
+  .curio {
+    padding: 80px 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .curio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    max-width: 1280px;
+    margin: 0 auto;
+    border: 1.5px solid var(--ink);
+    background: var(--news);
+  }
+  .curio-cell {
+    padding: 28px 28px 32px;
+    border-right: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .curio-cell:last-child { border-right: 0; }
+  .curio-cap {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 600;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 10px;
+  }
+  .curio-h {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.15;
+    margin: 0;
+  }
+  .curio p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .curio p .bold { font-family: "Instrument Serif", serif; font-style: italic; color: var(--red); }
+  .curio-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .curio-list li {
+    display: grid;
+    grid-template-columns: 26px 1fr auto;
+    gap: 10px;
+    align-items: baseline;
+    font-size: 13px;
+  }
+  .curio-list li b {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--red);
+    font-weight: 400;
+  }
+  .curio-list li span:last-child {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .curio-list-2col li { grid-template-columns: 1fr auto !important; }
+  .curio-list-2col li span:first-child { font-family: "Instrument Serif", serif; font-style: italic; font-size: 14px; color: var(--ink-2); }
+  /* weather glyph */
+  .weather-fig {
+    margin-top: auto;
+    border-top: 1px dotted var(--rule);
+    padding-top: 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ───── FOUNDER'S LETTER ───── */
+  .founder {
+    padding: 96px 56px;
+    background: var(--news);
+    border-bottom: 1px solid var(--rule);
+  }
+  .founder-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .founder-head {
+    margin-bottom: 36px;
+    text-align: center;
+  }
+  .founder-body {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px dotted var(--rule);
+  }
+  .founder-h {
+    font-family: "DM Serif Display", serif;
+    font-size: 48px;
+    line-height: 1;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .founder-h em { font-style: italic; color: var(--red); }
+  .founder-kicker {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .founder-kicker::before, .founder-kicker::after {
+    content: "✦"; margin: 0 12px; color: var(--rule);
+  }
+  .founder-byline {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .founder p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin: 0 0 14px;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .founder p.first {
+    column-span: none;
+  }
+  .founder p.first::first-letter {
+    font-family: "DM Serif Display", serif;
+    font-size: 5em;
+    float: left;
+    line-height: 0.85;
+    margin: 4px 10px 0 0;
+    color: var(--red);
+  }
+  .founder-sig {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    margin-top: 8px;
+  }
+  .founder-sig small {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    font-style: normal;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ───── PRONUNCIATION GUIDE ───── */
+  .pronounce {
+    padding: 60px 56px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+  }
+  .pronounce-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .pronounce-eyebrow::before, .pronounce-eyebrow::after {
+    content: "❦"; margin: 0 10px; color: var(--rule);
+  }
+  .pronounce-word {
+    font-family: "DM Serif Display", serif;
+    font-size: 84px;
+    line-height: 1;
+    margin: 0 0 12px;
+  }
+  .pronounce-word em { font-style: italic; color: var(--red); }
+  .pronounce-ipa {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .pronounce-defs {
+    display: flex;
+    justify-content: center;
+    gap: 56px;
+    margin-top: 24px;
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+  .pronounce-def {
+    flex: 1;
+    max-width: 280px;
+  }
+  .pronounce-def b {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .pronounce-def p {
+    font-family: "Instrument Serif", serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .pronounce-def p i { color: var(--muted); }
+  .pronounce-def p span.exno {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    color: var(--red);
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  /* ───── CROSSWORD-ISH CURIO (data anagrams) ───── */
+  .anagrams {
+    padding: 60px 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .anagrams-head { text-align: center; margin-bottom: 32px; }
+  .anagrams-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .anagram {
+    border: 1.5px solid var(--ink);
+    background: var(--news);
+    padding: 18px 16px 16px;
+    display: flex; flex-direction: column; gap: 6px;
+    position: relative;
+  }
+  .anagram-from {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .anagram-old {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px;
+    color: var(--ink-2);
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 1.5px;
+  }
+  .anagram-new {
+    font-family: "DM Serif Display", serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--red);
+  }
+  .anagram-note {
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1.35;
+  }
+
+  /* selection */
+  ::selection { background: var(--red); color: var(--news); }
+
+  html { scroll-behavior: smooth; }
+
+  /* tweaks-controlled flags */
+  body[data-paper="white"] { --news: #faf6e8; --paper: #fdf9ed; --paper-2: #f0e8c8; }
+  body[data-paper="kraft"] { --news: #d9c89a; --paper: #ddc99a; --paper-2: #c9b685; --rule: #8a7340; --line: #8a7340; }
+
+  body[data-accent="red"] { --red: #c1361e; --red-deep: #8e2614; }
+  body[data-accent="ink"] { --red: #1a1612; --red-deep: #000; }
+  body[data-accent="rust"] { --red: #a14a1a; --red-deep: #6e2e0c; }
+  body[data-accent="navy"] { --red: #1e3a5c; --red-deep: #0f243d; }
+</style>
+</head>
+<body data-paper="cream" data-accent="red">
+
+<!-- ═════════ ISSUE STRIP ═════════ -->
+<div class="issue-strip">
+  <span><span class="pill">FRESH ISSUE</span> &nbsp; VOL. I · NO. 01 · APR MMXXVI</span>
+  <span>YOUR PRACTICAL GUIDE TO QUERIES &amp; ROWS</span>
+  <span>PRICE: 0 ROWS · CIRCULATION: ∞</span>
+</div>
+
+<!-- ═════════ MASTHEAD ═════════ -->
+<header class="masthead">
+  <div class="masthead-row">
+    <div class="masthead-meta">
+      <div><b>EST.</b> MMXXVI</div>
+      <div><b>FORMERLY</b> "ClickHouse"</div>
+      <div><b>WEATHER</b> Sunny</div>
+    </div>
+    <div>
+      <h1 class="wordmark">Click<em>Hows</em></h1>
+      <div class="masthead-tagline">The Practical Almanac for Data &amp; Sundry Queries</div>
+    </div>
+    <div class="masthead-meta right">
+      <div><b>PRESS RUN</b> 4.2 PETABYTES</div>
+      <div><b>EDITOR-AT-LARGE</b> The Optimizer</div>
+      <div><b>PROOFED BY</b> A Vectorized Engine</div>
+    </div>
+  </div>
+</header>
+
+<!-- ═════════ LEDE ═════════ -->
+<section class="lede">
+  <div class="lede-kicker">A NOTE TO OUR READERSHIP</div>
+  <h2 class="lede-h1">A New Name for the<br>World's Most <em>Practical</em> Database.</h2>
+  <p class="lede-deck">
+    For years you have asked it questions. For years it has answered, faster than seemed reasonable. Today, we are pleased to introduce a name that better reflects the relationship: <strong>ClickHows</strong> — formerly ClickHouse — your handy, columnar, in-pocket how-to guide for matters of data.
+  </p>
+  <div class="lede-byline">
+    BY <b>THE EDITORS</b> · 30 APR 2026 · 4 MIN READ · <b>FILED UNDER</b> REBRANDS, INDEXES, KETTLES
+  </div>
+</section>
+
+<!-- ═════════ READ BY ═════════ -->
+<section class="readby">
+  <div class="readby-label">
+    READ DAILY BY
+    <b>4,200 engineers,<br>analysts &amp; insomniacs.</b>
+  </div>
+  <div class="readby-names">
+    <div class="readby-track">
+      <span class="readby-name">Cloudflare</span>
+      <span class="readby-name">Uber</span>
+      <span class="readby-name">eBay</span>
+      <span class="readby-name">Lyft</span>
+      <span class="readby-name">Sony</span>
+      <span class="readby-name">GitLab</span>
+      <span class="readby-name">Klaviyo</span>
+      <span class="readby-name">Bloomberg</span>
+      <span class="readby-name">Tesla</span>
+      <span class="readby-name">Spotify</span>
+      <span class="readby-name">Anthropic</span>
+      <span class="readby-name">CERN</span>
+      <span class="readby-name">Vercel</span>
+      <span class="readby-name">Disney</span>
+      <span class="readby-name">Cisco</span>
+      <!-- duplicate for seamless loop -->
+      <span class="readby-name">Cloudflare</span>
+      <span class="readby-name">Uber</span>
+      <span class="readby-name">eBay</span>
+      <span class="readby-name">Lyft</span>
+      <span class="readby-name">Sony</span>
+      <span class="readby-name">GitLab</span>
+      <span class="readby-name">Klaviyo</span>
+      <span class="readby-name">Bloomberg</span>
+      <span class="readby-name">Tesla</span>
+      <span class="readby-name">Spotify</span>
+      <span class="readby-name">Anthropic</span>
+      <span class="readby-name">CERN</span>
+      <span class="readby-name">Vercel</span>
+      <span class="readby-name">Disney</span>
+      <span class="readby-name">Cisco</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ PRONUNCIATION ═════════ -->
+<section class="pronounce">
+  <div class="pronounce-eyebrow">PRONUNCIATION KEY · FROM THE LEXICON</div>
+  <h2 class="pronounce-word">Click<em>·</em>Hows</h2>
+  <div class="pronounce-ipa">/ˈklɪk.haʊz/ &nbsp;·&nbsp; <i>noun</i></div>
+  <div class="pronounce-defs">
+    <div class="pronounce-def">
+      <b>1 · Originally</b>
+      <p><span class="exno">a.</span>A column-oriented OLAP database, written in C++, capable of answering questions about a billion rows in roughly the time it takes to <i>blink twice.</i></p>
+    </div>
+    <div class="pronounce-def">
+      <b>2 · Now also</b>
+      <p><span class="exno">b.</span>The most polite way to mispronounce "ClickHouse" within earshot of a partner, in-law, or board member who has stopped listening at "Click."</p>
+    </div>
+    <div class="pronounce-def">
+      <b>3 · See also</b>
+      <p><span class="exno">c.</span><i>Cf.</i> ClickHaus (architectural), ClickHaiku (poetic), ClickHowdy (Texan), ClickHowsoever (legal).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ INDEX OF HOW-TOS ═════════ -->
+<section class="index">
+  <div class="section-head">
+    <div class="section-num">I.</div>
+    <h3 class="section-title">An <em>Index</em> of Useful How-Tos</h3>
+    <div class="section-meta">PP. 04 — 31 · TWELVE TUTORIALS</div>
+  </div>
+
+  <div class="index-grid">
+    <div class="how-row">
+      <span class="how-num">01.</span>
+      <span class="how-title">How to query a <em>billion rows</em> before the kettle boils</span>
+      <span class="how-page">P. 04</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">02.</span>
+      <span class="how-title">How to politely <em>ignore</em> a JOIN you don't need</span>
+      <span class="how-page">P. 06</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">03.</span>
+      <span class="how-title">How to store a <em>petabyte</em> in roughly the same space as a sandwich</span>
+      <span class="how-page">P. 09</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">04.</span>
+      <span class="how-title">How to <em>vectorize</em> without raising your voice</span>
+      <span class="how-page">P. 12</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">05.</span>
+      <span class="how-title">How to <em>sample</em> a dataset, the way a chef tastes soup</span>
+      <span class="how-page">P. 15</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">06.</span>
+      <span class="how-title">How to write a GROUP BY that <em>respects itself</em></span>
+      <span class="how-page">P. 18</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">07.</span>
+      <span class="how-title">How to make a materialized view, and <em>keep its trust</em></span>
+      <span class="how-page">P. 21</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">08.</span>
+      <span class="how-title">How to read an <em>EXPLAIN</em>, calmly</span>
+      <span class="how-page">P. 23</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">09.</span>
+      <span class="how-title">How to compress data <em>without</em> losing your sense of humor</span>
+      <span class="how-page">P. 25</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">10.</span>
+      <span class="how-title">How to replicate, <em>twice</em>, just to be sure</span>
+      <span class="how-page">P. 27</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">11.</span>
+      <span class="how-title">How to send 250 ms <em>back</em> where it came from</span>
+      <span class="how-page">P. 29</span>
+    </div>
+    <div class="how-row">
+      <span class="how-num">12.</span>
+      <span class="how-title">How to tell your partner <em>what you do</em> for a living</span>
+      <span class="how-page">P. 31</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ WHAT WE ARE NOT ═════════ -->
+<section class="arenot">
+  <div class="section-head" style="max-width:1280px;margin:0 auto 36px;">
+    <div class="section-num">III.</div>
+    <h3 class="section-title">A Brief List of <em>Things We Are Not</em></h3>
+    <div class="section-meta">P. 17 · CLARIFYING REMARKS</div>
+  </div>
+
+  <div class="arenot-grid">
+    <ul class="arenot-list">
+      <li class="arenot-item">
+        <span class="arenot-name">A row-store database</span>
+        <span class="arenot-because">We arrange in columns. We always have. The neighbours have noticed.</span>
+        <span class="arenot-x">✕</span>
+      </li>
+      <li class="arenot-item">
+        <span class="arenot-name">A transactional system</span>
+        <span class="arenot-because">For the moving of money in small parcels, please see Postgres, two doors down.</span>
+        <span class="arenot-x">✕</span>
+      </li>
+      <li class="arenot-item">
+        <span class="arenot-name">A key-value store</span>
+        <span class="arenot-because">We do keep keys, but we file them with the values, not on top of them.</span>
+        <span class="arenot-x">✕</span>
+      </li>
+      <li class="arenot-item">
+        <span class="arenot-name">A document store</span>
+        <span class="arenot-because">JSON is welcome here, but it is asked, gently, to take a seat in a column.</span>
+        <span class="arenot-x">✕</span>
+      </li>
+      <li class="arenot-item">
+        <span class="arenot-name">A search engine</span>
+        <span class="arenot-because">Though, between you and me, we are <em>quite</em> good at finding things.</span>
+        <span class="arenot-x">✕</span>
+      </li>
+      <li class="arenot-item">
+        <span class="arenot-name">A spreadsheet</span>
+        <span class="arenot-because">A common confusion. Spreadsheets calculate. We compute. There is a difference, slight but firm.</span>
+        <span class="arenot-x">✕</span>
+      </li>
+      <li class="arenot-item">
+        <span class="arenot-name">A blockchain</span>
+        <span class="arenot-because">No.</span>
+        <span class="arenot-x">✕</span>
+      </li>
+    </ul>
+
+    <aside class="arenot-aside">
+      <h4 class="arenot-aside-h">What, then, <em>are</em> we?</h4>
+      <p>A column-store, OLAP, vectorized, distributed analytics database, written in C++, with sparse indexes and a strong feeling that <em>fast queries are queries that read less.</em></p>
+      <p>If that didn't help, try this: imagine a library where the books are sorted not by spine, but by chapter. You ask for "all the chapters about Tuesday," and we hand you back exactly those, leaving the Wednesdays undisturbed.</p>
+      <p>If <em>that</em> didn't help, try this: it's fast. It's quite fast.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ═════════ FOUNDER'S LETTER ═════════ -->
+<section class="founder">
+  <div class="founder-inner">
+    <div class="founder-head">
+      <div class="founder-kicker">FROM THE EDITOR-AT-LARGE</div>
+      <h2 class="founder-h">A Letter from <em>Alexey,</em><br>Engine-keeper since '09.</h2>
+      <div class="founder-byline">As told to the desk · transcribed faithfully · edited only for kettles.</div>
+    </div>
+    <div class="founder-body">
+    <p class="first">It began, as most useful things do, with someone needing to count something quickly. The year was 2009. The thing being counted was clicks. The place was a search engine in Moscow that no longer wishes to be named. The deadline, as usual, was Tuesday.</p>
+    <p>I wrote, at first, a small program. It read columns instead of rows, because rows seemed to me wasteful in the way a person who reads only the first sentence of every paragraph still has to turn every page. The program was fast. People asked if it could be faster. I said yes, and then I was obliged to make it so.</p>
+    <p>Sixteen years later, the program is still fast. It is, by some measures, between one hundred and one thousand times faster than the things it sits next to in benchmark tables. I take no special pride in this; I am simply unwilling to make it slower, having gone to the trouble.</p>
+    <p>People keep mispronouncing the name. I have come to find this charming. "ClickHouse" was always a slightly awkward construction — a verb wedded to a building — and we knew, in our hearts, that it was destined for misadventure on the lips of partners, parents, and customers in a hurry.</p>
+    <p>So here we are. <em>ClickHows.</em> An almanac, of sorts, for a database that is, when you really think about it, an almanac of sorts. Same engine. Same C++. Same merge tree. Same kettle. New cover.</p>
+    <p>If you would like to know <em>how</em> something is done in your data — how many, how often, how quickly, how come — we will be at the desk. The kettle is on.</p>
+    <div class="founder-sig">
+      Yours, in columns,<br>
+      <em>— A. Milovidov</em>
+      <small>FOUNDER · MAINTAINER · KETTLE-WATCHER</small>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ DIAGRAM ═════════ -->
+<section class="diagram">
+  <div class="section-head" style="max-width:1280px;margin:0 auto 36px;">
+    <div class="section-num">II.</div>
+    <h3 class="section-title">The <em>Anatomy</em> of a Query</h3>
+    <div class="section-meta">FIG. 01 · PLATE I · ILLUSTRATED</div>
+  </div>
+
+  <div class="diagram-stage">
+    <div class="diagram-svg-wrap">
+      <svg viewBox="0 0 600 400" width="100%" fill="none" stroke="#1a1612" stroke-width="1.2">
+        <!-- guide grid (very faint) -->
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" stroke="#c8b88e" stroke-width="0.3" fill="none"/>
+          </pattern>
+        </defs>
+        <rect width="600" height="400" fill="url(#grid)" stroke="none"/>
+
+        <!-- query box (top) -->
+        <rect x="60" y="40" width="480" height="60" fill="#f7f1dc" stroke="#1a1612" stroke-width="1.2"/>
+        <text x="80" y="65" font-family="IBM Plex Mono, monospace" font-size="13" fill="#1a1612">SELECT count() FROM events</text>
+        <text x="80" y="85" font-family="IBM Plex Mono, monospace" font-size="13" fill="#1a1612">WHERE day = today() GROUP BY user;</text>
+
+        <!-- arrow to parser -->
+        <line x1="300" y1="100" x2="300" y2="135" stroke="#1a1612" stroke-width="1"/>
+        <polygon points="300,140 295,132 305,132" fill="#1a1612"/>
+
+        <!-- parser -->
+        <rect x="180" y="140" width="240" height="44" fill="#fff" stroke="#1a1612"/>
+        <text x="300" y="167" text-anchor="middle" font-family="Instrument Serif, serif" font-size="16" fill="#1a1612" font-style="italic">The Parser</text>
+
+        <!-- arrow -->
+        <line x1="300" y1="184" x2="300" y2="215" stroke="#1a1612"/>
+        <polygon points="300,220 295,212 305,212" fill="#1a1612"/>
+
+        <!-- optimizer -->
+        <rect x="160" y="220" width="280" height="44" fill="#fff" stroke="#1a1612"/>
+        <text x="300" y="247" text-anchor="middle" font-family="Instrument Serif, serif" font-size="16" fill="#1a1612" font-style="italic">The Optimizer (a quiet sort)</text>
+
+        <!-- splits -->
+        <line x1="220" y1="264" x2="160" y2="300" stroke="#1a1612"/>
+        <line x1="380" y1="264" x2="440" y2="300" stroke="#1a1612"/>
+        <line x1="300" y1="264" x2="300" y2="300" stroke="#1a1612"/>
+
+        <!-- columns (parts) -->
+        <rect x="80" y="305" width="120" height="50" fill="#f7f1dc" stroke="#1a1612"/>
+        <text x="140" y="328" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1a1612">PART 001</text>
+        <text x="140" y="345" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#6e5f4a">columnar · sorted</text>
+
+        <rect x="240" y="305" width="120" height="50" fill="#f7f1dc" stroke="#1a1612"/>
+        <text x="300" y="328" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1a1612">PART 002</text>
+        <text x="300" y="345" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#6e5f4a">columnar · sorted</text>
+
+        <rect x="400" y="305" width="120" height="50" fill="#f7f1dc" stroke="#1a1612"/>
+        <text x="460" y="328" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#1a1612">PART 003</text>
+        <text x="460" y="345" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#6e5f4a">columnar · sorted</text>
+
+        <!-- result arrow back up (curved) -->
+        <path d="M 540 330 Q 580 250 555 70 L 555 70" stroke="#c1361e" stroke-width="1.4" fill="none" stroke-dasharray="4 3"/>
+        <polygon points="555,70 550,80 560,80" fill="#c1361e"/>
+        <text x="568" y="200" font-family="IBM Plex Mono, monospace" font-size="10" fill="#c1361e" letter-spacing="0.1em" transform="rotate(90 568 200)">RESULT · 250ms</text>
+
+        <!-- numbered callouts -->
+        <g font-family="IBM Plex Mono, monospace" font-weight="600" font-size="11" fill="#fff">
+          <circle cx="40" cy="70" r="13" fill="#c1361e" stroke="#1a1612" stroke-width="1.2"/>
+          <text x="40" y="74" text-anchor="middle">1</text>
+          <line x1="53" y1="70" x2="60" y2="70" stroke="#1a1612"/>
+
+          <circle cx="120" cy="162" r="13" fill="#c1361e" stroke="#1a1612" stroke-width="1.2"/>
+          <text x="120" y="166" text-anchor="middle">2</text>
+          <line x1="133" y1="162" x2="180" y2="162" stroke="#1a1612"/>
+
+          <circle cx="120" cy="242" r="13" fill="#c1361e" stroke="#1a1612" stroke-width="1.2"/>
+          <text x="120" y="246" text-anchor="middle">3</text>
+          <line x1="133" y1="242" x2="160" y2="242" stroke="#1a1612"/>
+
+          <circle cx="40" cy="330" r="13" fill="#c1361e" stroke="#1a1612" stroke-width="1.2"/>
+          <text x="40" y="334" text-anchor="middle">4</text>
+          <line x1="53" y1="330" x2="80" y2="330" stroke="#1a1612"/>
+
+          <circle cx="568" cy="40" r="13" fill="#c1361e" stroke="#1a1612" stroke-width="1.2"/>
+          <text x="568" y="44" text-anchor="middle">5</text>
+        </g>
+      </svg>
+    </div>
+
+    <ul class="legend">
+      <div class="legend-eyebrow">— THE FIVE PARTS —</div>
+      <div class="legend-h">A query, in <em>five tidy steps.</em></div>
+
+      <li class="legend-item">
+        <span class="legend-num">1</span>
+        <div class="legend-text"><b>The <em>Question</em></b>You write SQL. It is the most polite request a computer is asked to handle all day.</div>
+      </li>
+      <li class="legend-item">
+        <span class="legend-num">2</span>
+        <div class="legend-text"><b>The <em>Parser</em></b>Reads it twice, just to be sure. Pretends not to mind the trailing semicolon.</div>
+      </li>
+      <li class="legend-item">
+        <span class="legend-num">3</span>
+        <div class="legend-text"><b>The <em>Optimizer</em></b>Quietly rearranges your request so it can be answered without breaking a sweat.</div>
+      </li>
+      <li class="legend-item">
+        <span class="legend-num">4</span>
+        <div class="legend-text"><b>The <em>Parts</em></b>Compressed columnar shelves. Only the columns you asked for are taken down.</div>
+      </li>
+      <li class="legend-item" style="border-bottom:0;">
+        <span class="legend-num">5</span>
+        <div class="legend-text"><b>The <em>Result</em></b>Returned, often, before you've remembered why you asked.</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═════════ ADVICE COLUMN ═════════ -->
+<section class="advice">
+  <div class="section-head" style="max-width:1280px;margin:0 auto 36px;">
+    <div class="section-num">IV.</div>
+    <h3 class="section-title">Dear <em>ClickHows</em></h3>
+    <div class="section-meta">CORRESPONDENCE · LETTERS TO THE EDITOR</div>
+  </div>
+
+  <div class="advice-grid">
+    <div class="letter">
+      <div class="letter-from"><b>FROM:</b> A WORRIED DATA ENGINEER · BERLIN</div>
+      <p class="letter-q">My dashboards take eleven seconds to load. My CTO has begun sighing audibly. Have I done something wrong?</p>
+      <div class="letter-sig">— Sighing in Schöneberg</div>
+      <div class="letter-a-label">Dear Sighing,</div>
+      <p class="letter-a dropcap">
+        Eleven seconds is a long time to ask a colleague to wait. The good news: in this house, we measure in milliseconds, and we generally have time left over for a biscuit. Drop your row-store, take up a column-store, and your CTO will find something else to sigh about — possibly the weather, more likely the roadmap. With warm regards, <b>The Editors.</b>
+      </p>
+
+      <div class="knowhow">
+        <p class="knowhow-q">A column-store reads only the columns it needs.</p>
+        <p class="knowhow-a">Your row-store reads the whole row, every time. Imagine reaching into the pantry for salt and being asked to take down the entire shelf, including the flour, the lentils, and a small jar of capers nobody remembers buying. That is a row-store. We are not that.</p>
+      </div>
+    </div>
+
+    <div class="letter">
+      <div class="letter-from"><b>FROM:</b> A FOUNDER, RECENTLY FUNDED · NYC</div>
+      <p class="letter-q">My investors keep asking what database we use. "ClickHouse" sounds like a furniture store. Will "ClickHows" sound any better in a board meeting?</p>
+      <div class="letter-sig">— Pitching in Tribeca</div>
+      <div class="letter-a-label">Dear Pitching,</div>
+      <p class="letter-a dropcap">
+        It will sound considerably better, because it implies you know how things are done. "How" is the most board-meeting-friendly word in the English language. Pair it with a verb of your choosing — "ClickHows scales," "ClickHows queries," "ClickHows answers" — and you will find decks practically write themselves. Yours in advisory tone, <b>The Editors.</b>
+      </p>
+
+      <div class="knowhow">
+        <p class="knowhow-q">"How" outperforms "House" in 14 of 16 board-deck word-clouds.</p>
+        <p class="knowhow-a">Source: a study we just made up while writing this column. Methodology available upon request, though we will not be answering any.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ PROCLAMATION ═════════ -->
+<section class="proclaim">
+  <div class="proclaim-eyebrow">A WORD FROM THE EDITORS</div>
+  <p class="proclaim-quote">
+    "We didn't change the engine. We just <span class="red">changed the verb.</span>"
+  </p>
+  <div class="proclaim-sig">CLICKHOWS · VOL. I · NO. 01 · APR MMXXVI</div>
+</section>
+
+<!-- ═════════ BENCHMARK / RACE RESULTS ═════════ -->
+<section class="bench">
+  <div class="section-head" style="max-width:1100px;margin:0 auto 28px;">
+    <div class="section-num">V.</div>
+    <h3 class="section-title">The <em>Spring Benchmark,</em> Officially Recorded</h3>
+    <div class="section-meta">P. 22 · 100M-ROW HEAT · GROUP BY · COUNT()</div>
+  </div>
+
+  <table class="bench-table">
+    <thead>
+      <tr>
+        <th class="center" style="width:80px;">Place</th>
+        <th>Entrant</th>
+        <th>Class</th>
+        <th class="center">Rows / sec</th>
+        <th>Time to finish</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="winner">
+        <td class="bench-pos">i.</td>
+        <td><span class="bench-name us">Click<em>Hows</em></span></td>
+        <td>Column-store, vectorized</td>
+        <td class="center bench-time">1,043,000,000</td>
+        <td class="bench-time">0.094 s</td>
+      </tr>
+      <tr>
+        <td class="bench-pos">ii.</td>
+        <td><span class="bench-name">A Well-Regarded Warehouse</span></td>
+        <td>Cloud, columnar</td>
+        <td class="center bench-time">81,200,000</td>
+        <td class="bench-time">1.21 s</td>
+      </tr>
+      <tr>
+        <td class="bench-pos">iii.</td>
+        <td><span class="bench-name">A Patient Postgres</span></td>
+        <td>Row-store, transactional</td>
+        <td class="center bench-time">9,800,000</td>
+        <td class="bench-time">10.2 s</td>
+      </tr>
+      <tr>
+        <td class="bench-pos">iv.</td>
+        <td><span class="bench-name">A Spreadsheet, Bravely</span></td>
+        <td>Open in another tab</td>
+        <td class="center bench-time">~ 240,000</td>
+        <td class="bench-time">7m 04s ⚠</td>
+      </tr>
+      <tr>
+        <td class="bench-pos">v.</td>
+        <td><span class="bench-name">A Loop, Hand-Written</span></td>
+        <td>Python, sincere</td>
+        <td class="center bench-time">3,400</td>
+        <td class="bench-time">— see Tuesday</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="bench-note">All times measured on the same modest server, sober, single kettle, room temperature. Your mileage may, of course, vary; ours rarely does.</p>
+</section>
+
+<!-- ═════════ CURIO (Weather, Recipes, Anagrams) ═════════ -->
+<section class="curio">
+  <div class="section-head" style="max-width:1280px;margin:0 auto 28px;">
+    <div class="section-num">VI.</div>
+    <h3 class="section-title">The <em>Back Pages</em>: Weather, Recipes &amp; Curios</h3>
+    <div class="section-meta">PP. 38 — 41 · BY POPULAR DEMAND</div>
+  </div>
+
+  <div class="curio-grid">
+    <div class="curio-cell">
+      <div class="curio-cap">— LOCAL WEATHER · DATA REGION —</div>
+      <h4 class="curio-h">Sunny, with a chance of <span class="bold">aggregations.</span></h4>
+      <p>Light ingest from the south-east, moderate scans through midday. Compression high. Possibility of a brief replication shower around tea-time. ZooKeeper has retired; <span class="bold">Keeper</span> takes the watch.</p>
+      <ul class="curio-list">
+        <li><b>06:00</b><span>Cold storage, partly cloudy</span><span>17 °C</span></li>
+        <li><b>12:00</b><span>Hot path, vectorized sun</span><span>24 °C</span></li>
+        <li><b>18:00</b><span>Materialized view forming</span><span>22 °C</span></li>
+        <li><b>00:00</b><span>Background merges</span><span>14 °C</span></li>
+      </ul>
+      <div class="weather-fig">
+        <span>WIND · NW · 0.25 ms</span>
+        <span>VISIBILITY · ∞</span>
+      </div>
+    </div>
+
+    <div class="curio-cell">
+      <div class="curio-cap">— RECIPES FROM THE PANTRY —</div>
+      <h4 class="curio-h">A <span class="bold">MergeTree</span>, slow-cooked.</h4>
+      <p><b>Serves:</b> One analyst &amp; their CTO.<br><b>Time:</b> Less than the kettle.</p>
+      <ul class="curio-list" style="grid-template-columns: 26px 1fr;">
+        <li><b>i.</b><span>Take one well-sorted column. Set aside.</span></li>
+        <li><b>ii.</b><span>Add a sparse index, by feel.</span></li>
+        <li><b>iii.</b><span>Compress until it gives.</span></li>
+        <li><b>iv.</b><span>Fold in three replicas, off heat.</span></li>
+        <li><b>v.</b><span>Serve at sub-second temperature.</span></li>
+        <li><b>vi.</b><span>Garnish with a materialized view.</span></li>
+      </ul>
+      <p style="margin-top:auto;font-style:italic;color:var(--muted);font-size:12px;">Tip: a pinch of <span class="bold">PRIMARY KEY</span> never hurts. A pinch of OFFSET, however, often does.</p>
+    </div>
+
+    <div class="curio-cell">
+      <div class="curio-cap">— CORRESPONDENCE OVERHEARD —</div>
+      <h4 class="curio-h">Things our partners <span class="bold">actually call us.</span></h4>
+      <ul class="curio-list curio-list-2col">
+        <li><span>"That click thing you do"</span><span>34%</span></li>
+        <li><span>"ClickHouse" (correct)</span><span>22%</span></li>
+        <li><span>"ClickHows"</span><span>18%</span></li>
+        <li><span>"Click-something"</span><span>11%</span></li>
+        <li><span>"The fast one"</span><span>9%</span></li>
+        <li><span>"Honey, is dinner ready?"</span><span>4%</span></li>
+        <li><span>"ClickHaus"</span><span>2%</span></li>
+      </ul>
+      <p style="margin-top:auto;font-style:italic;color:var(--muted);font-size:12px;">Survey of 1,200 partners. Margin of error: one eye-roll either way.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ANAGRAMS ═════════ -->
+<section class="anagrams">
+  <div class="anagrams-head">
+    <div class="rooms-eyebrow" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:12px;">— THE BACK PAGE PUZZLER · NO. 01 —</div>
+    <h3 class="section-title" style="border-bottom:0;padding:0;font-size:36px;">Other Names <em>Briefly Considered</em></h3>
+    <p style="font-family:'Instrument Serif',serif;font-style:italic;color:var(--muted);font-size:15px;margin:8px 0 0;">All anagrams of "ClickHouse." None of them survived the meeting.</p>
+  </div>
+  <div class="anagrams-grid">
+    <div class="anagram">
+      <div class="anagram-from">CONSIDERED</div>
+      <div class="anagram-old">ClickHouse</div>
+      <div class="anagram-new">Cluck Hoise</div>
+      <div class="anagram-note">Sounded too agricultural.</div>
+    </div>
+    <div class="anagram">
+      <div class="anagram-from">CONSIDERED</div>
+      <div class="anagram-old">ClickHouse</div>
+      <div class="anagram-new">Lick Choseu</div>
+      <div class="anagram-note">Legal flagged it. Twice.</div>
+    </div>
+    <div class="anagram">
+      <div class="anagram-from">CONSIDERED</div>
+      <div class="anagram-old">ClickHouse</div>
+      <div class="anagram-new">House Click</div>
+      <div class="anagram-note">Already tried last week.</div>
+    </div>
+    <div class="anagram">
+      <div class="anagram-from">ADOPTED</div>
+      <div class="anagram-old">ClickHouse</div>
+      <div class="anagram-new">ClickHows</div>
+      <div class="anagram-note">Lost a 'u'; gained a verb.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ TUTORIAL STRIP ═════════ -->
+<section class="tutorial">
+  <div class="section-head">
+    <div class="section-num">VII.</div>
+    <h3 class="section-title">How to <em>Move In</em> in Four Steps</h3>
+    <div class="section-meta">PP. 32 — 35 · ILLUSTRATED THROUGHOUT</div>
+  </div>
+
+  <div class="tutorial-steps">
+    <div class="step">
+      <div class="step-num-row">
+        <div class="step-num">i.</div>
+        <div class="step-label">FIRST, ONE DOES</div>
+      </div>
+      <div class="step-title"><em>Connect</em> as before.</div>
+      <p class="step-desc">Same hostnames, same ports, same drivers. Your DSN does not need to know anything has changed; in fact, do not tell it.</p>
+      <svg class="step-fig" viewBox="0 0 56 56" stroke="#1a1612" fill="none" stroke-width="1.4">
+        <circle cx="28" cy="28" r="20"/>
+        <path d="M16 28 L26 38 L42 20" stroke="#c1361e" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="step">
+      <div class="step-num-row">
+        <div class="step-num">ii.</div>
+        <div class="step-label">THEN, ONE WRITES</div>
+      </div>
+      <div class="step-title">A polite <em>SELECT</em>.</div>
+      <p class="step-desc">Begin with what you'd like to know. Most queries, like most letters, are improved by knowing what they're for before you start.</p>
+      <svg class="step-fig" viewBox="0 0 56 56" stroke="#1a1612" fill="none" stroke-width="1.4">
+        <rect x="14" y="16" width="28" height="24"/>
+        <line x1="18" y1="22" x2="38" y2="22" stroke="#c1361e"/>
+        <line x1="18" y1="28" x2="34" y2="28"/>
+        <line x1="18" y1="34" x2="30" y2="34"/>
+      </svg>
+    </div>
+    <div class="step">
+      <div class="step-num-row">
+        <div class="step-num">iii.</div>
+        <div class="step-label">SHORTLY, ONE WAITS</div>
+      </div>
+      <div class="step-title">For <em>250 ms.</em></div>
+      <p class="step-desc">During which time, you may stretch, sip tea, or remember an unrelated thing you meant to do on Wednesday. We will be done first.</p>
+      <svg class="step-fig" viewBox="0 0 56 56" stroke="#1a1612" fill="none" stroke-width="1.4">
+        <circle cx="28" cy="30" r="16"/>
+        <line x1="28" y1="30" x2="28" y2="20" stroke="#c1361e" stroke-width="2"/>
+        <line x1="28" y1="30" x2="36" y2="34"/>
+        <line x1="22" y1="12" x2="34" y2="12"/>
+      </svg>
+    </div>
+    <div class="step">
+      <div class="step-num-row">
+        <div class="step-num">iv.</div>
+        <div class="step-label">AT LAST, ONE READS</div>
+      </div>
+      <div class="step-title">The <em>answer.</em></div>
+      <p class="step-desc">Returned in tidy rows, exactly the size you asked for. Suitable for dashboards, for memos, and for ending a meeting fifteen minutes early.</p>
+      <svg class="step-fig" viewBox="0 0 56 56" stroke="#1a1612" fill="none" stroke-width="1.4">
+        <path d="M14 38 L24 28 L32 34 L42 18" stroke="#c1361e" stroke-width="2"/>
+        <line x1="14" y1="42" x2="42" y2="42"/>
+        <line x1="14" y1="14" x2="14" y2="42"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ ALMANAC FACTS ═════════ -->
+<section class="almanac">
+  <div class="section-head" style="max-width:1280px;margin:0 auto 28px;">
+    <div class="section-num">VIII.</div>
+    <h3 class="section-title">Curious <em>Statistics</em> &amp; Almanac Facts</h3>
+    <div class="section-meta">PP. 36 · ALL FIGURES ROUNDED, NONE EXAGGERATED</div>
+  </div>
+
+  <div class="almanac-grid">
+    <div class="fact">
+      <div class="fact-num"><em>1</em>BN</div>
+      <div class="fact-lbl">Rows queried per second</div>
+      <div class="fact-note">— per modest server, sober.</div>
+    </div>
+    <div class="fact">
+      <div class="fact-num">25<em>0</em></div>
+      <div class="fact-lbl">Milliseconds, average</div>
+      <div class="fact-note">— less time than a sigh.</div>
+    </div>
+    <div class="fact">
+      <div class="fact-num"><em>x</em>10</div>
+      <div class="fact-lbl">Compression, median</div>
+      <div class="fact-note">— a petabyte fits in the pantry.</div>
+    </div>
+    <div class="fact">
+      <div class="fact-num">∞<em>÷2</em></div>
+      <div class="fact-lbl">Remaining capacity</div>
+      <div class="fact-note">— roughly half of forever, give or take.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ COLOPHON ═════════ -->
+<footer class="colophon">
+  <div class="colophon-grid">
+    <div class="colophon-brand">
+      <h2 class="wordmark">Click<em>Hows</em></h2>
+      <div class="masthead-tagline">The Practical Almanac for Data &amp; Sundry Queries.</div>
+    </div>
+    <div>
+      <h4>The Magazine</h4>
+      <ul>
+        <li><a href="#">Current issue</a></li>
+        <li><a href="#">Past tutorials</a></li>
+        <li><a href="#">Letters page</a></li>
+        <li><a href="#">Press kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>How-Tos</h4>
+      <ul>
+        <li><a href="#">For the engineer</a></li>
+        <li><a href="#">For the analyst</a></li>
+        <li><a href="#">For the founder</a></li>
+        <li><a href="#">For the partner</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Subscribe</h4>
+      <ul>
+        <li><a href="#">Cloud edition</a></li>
+        <li><a href="#">Self-hosted edition</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Contact the desk</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="colophon-base">
+    <div>© MMXXVI · CLICKHOWS · A PRACTICAL JOURNAL · CLICKHOUSE.COM</div>
+    <div>SET IN DM SERIF DISPLAY, INSTRUMENT SERIF &amp; IBM PLEX · PRINTED ON THE INTERNET</div>
+  </div>
+</footer>
+
+<!-- ═════════ TWEAKS ═════════ -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<div id="tweaks-root"></div>
+
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "paper": "cream",
+    "accent": "red",
+    "headline": "practical",
+    "showAdvice": true,
+    "showAlmanac": true,
+    "wordmarkStyle": "italic"
+  }/*EDITMODE-END*/;
+
+  const HEADLINES = {
+    "practical": "practical",
+    "patient":   "patient",
+    "tidy":      "tidy",
+    "obliging":  "obliging"
+  };
+
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+    React.useEffect(() => {
+      document.body.dataset.paper = t.paper;
+      document.body.dataset.accent = t.accent;
+
+      const h1em = document.querySelector(".lede-h1 em");
+      if (h1em) h1em.textContent = HEADLINES[t.headline] || "practical";
+
+      document.querySelector(".advice").style.display = t.showAdvice ? "" : "none";
+      document.querySelector(".almanac").style.display = t.showAlmanac ? "" : "none";
+
+      // Wordmark style
+      const marks = document.querySelectorAll(".wordmark em");
+      marks.forEach(m => {
+        if (t.wordmarkStyle === "italic") {
+          m.style.fontStyle = "italic";
+          m.style.textDecoration = "none";
+        } else if (t.wordmarkStyle === "underline") {
+          m.style.fontStyle = "normal";
+          m.style.textDecoration = "underline";
+          m.style.textDecorationStyle = "wavy";
+          m.style.textDecorationThickness = "2px";
+          m.style.textUnderlineOffset = "6px";
+        } else if (t.wordmarkStyle === "boxed") {
+          m.style.fontStyle = "normal";
+          m.style.textDecoration = "none";
+          m.style.background = "var(--red)";
+          m.style.color = "var(--news)";
+          m.style.padding = "0 12px";
+          m.style.borderRadius = "2px";
+        } else {
+          m.style.fontStyle = "italic";
+          m.style.textDecoration = "none";
+          m.style.background = "";
+          m.style.color = "";
+          m.style.padding = "";
+        }
+      });
+    }, [t]);
+
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Paper & Ink" />
+        <TweakRadio label="Paper stock"
+          value={t.paper}
+          options={["cream", "white", "kraft"]}
+          onChange={(v) => setTweak("paper", v)} />
+        <TweakRadio label="Accent ink"
+          value={t.accent}
+          options={["red", "ink", "rust", "navy"]}
+          onChange={(v) => setTweak("accent", v)} />
+
+        <TweakSection label="Wordmark" />
+        <TweakRadio label="'Hows' treatment"
+          value={t.wordmarkStyle}
+          options={["italic", "underline", "boxed"]}
+          onChange={(v) => setTweak("wordmarkStyle", v)} />
+
+        <TweakSection label="Headline" />
+        <TweakSelect label="World's most ___ database"
+          value={t.headline}
+          options={[
+            { value: "practical", label: "practical" },
+            { value: "patient",   label: "patient" },
+            { value: "tidy",      label: "tidy" },
+            { value: "obliging",  label: "obliging" }
+          ]}
+          onChange={(v) => setTweak("headline", v)} />
+
+        <TweakSection label="Sections" />
+        <TweakToggle label="Dear ClickHows column" value={t.showAdvice}
+          onChange={(v) => setTweak("showAdvice", v)} />
+        <TweakToggle label="Almanac facts" value={t.showAlmanac}
+          onChange={(v) => setTweak("showAlmanac", v)} />
+      </TweaksPanel>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("tweaks-root")).render(<App />);
+</script>
+
+</body>
+</html>
